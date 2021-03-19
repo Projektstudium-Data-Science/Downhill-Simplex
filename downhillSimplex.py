@@ -7,7 +7,7 @@ alpha = 1
 beta = 1
 gamma = 0.5
 delta = 0.5
-m = [0,0]
+m = [0, 0]
 
 
 def f(v):
@@ -49,8 +49,12 @@ def iteration():
     else:
         if f(r) < f(x[3]):
             x[3] = r
-        if f(x[3]) > f(x[2])
+      #  if f(x[3]) > f(x[2])
+        # hier weiter machen
 
+
+def func():
+    print("do nothing")
 
 
 
