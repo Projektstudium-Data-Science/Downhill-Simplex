@@ -49,12 +49,15 @@ def iteration():
     else:
         if f(r) < f(x[3]):
             x[3] = r
-      #  if f(x[3]) > f(x[2])
-        # hier weiter machen
+        if f(x[3]) > f(x[2]):
+            r = x[3] + gamma * (m - x[3])
+            if f(r) < f(x[3]):
+                x[3] = r;
+            else:
+                for i in [0, 1, 2, 3]:
+                    if i != 0:
+                        x[i] = delta * (x[i] + x[0])
 
-
-def func():
-    print("do nothing")
 
 
 
