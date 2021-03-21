@@ -2,7 +2,7 @@ from typing import List
 from operator import length_hint
 import math
 
-x = [[4, 2], [1, 1], [0, 3], [3, 3]]
+x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
 alpha = 1
 beta = 1
 gamma = 0.5
@@ -14,6 +14,7 @@ def f(v):
     x1 = v[0]
     x2 = v[1]
     z = math.pow(math.pow(x1, 2) + x2 - 11, 2) + math.pow(x1 + math.pow(x2,2) - 7, 2)    # Himmelblau-Funktion
+    # z = 2 * math.pow(x1, 2) - 2 * (math.pow(x2, 2) - 11)
     return z
 
 
@@ -54,8 +55,10 @@ def iteration(m, x, e=list):
         e[1] = m[1] + beta * (m[1] - x[3][1])
         if f(e) < f(r):
             x[3] = e
+            print("Expansion: ", e)
         else:
             x[3] = r
+            print("Reflexion: ", r)
     else:
         if f(r) < f(x[3]):
             x[3] = r
@@ -64,23 +67,24 @@ def iteration(m, x, e=list):
             r[1] = x[3][1] + gamma * (m[1] - x[3][1])
             if f(r) < f(x[3]):
                 x[3] = r
+                print("Kontraktion: ", r)
             else:
                 for i in [0, 1, 2, 3]:
                     if i != 0:
                         x[i][0] = delta * (x[i][0] + x[0][0])    # shrink
                         x[i][1] = delta * (x[i][1] + x[0][1])
+                        print("Shrink: ", x[i])
     return x[0]
 
 
 def main(x):
     #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
     i = 0
-    while i < 10:
+    while i < 20:
         xtest = sort(x)
         mtest = centre(x)
         u = iteration(mtest, xtest)
-        z = (f(x[3]) - f(x[0])) / (abs(f(x[3])) + abs(f(x[0])) + 1)
-        print("z", z)
+        print("x: ", x)
         print(u)
         i += 1
     print(u)
