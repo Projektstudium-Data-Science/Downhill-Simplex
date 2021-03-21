@@ -2,7 +2,13 @@ from typing import List
 from operator import length_hint
 import math
 
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
 x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
+x1 = [x[0][0], x[1][0], x[2][0], x[3][0]]
+x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
 alpha = 1
 beta = 1
 gamma = 0.5
@@ -79,6 +85,10 @@ def iteration(m, x, e=list):
 
 def main(x):
     #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
+    z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
+    ax = plt.axes(projection='3d')
+    ax.scatter(x1, x2, z, c='green')
+#    plt.show()
     i = 0
     while i < 20:
         xtest = sort(x)
@@ -86,7 +96,14 @@ def main(x):
         u = iteration(mtest, xtest)
         print("x: ", x)
         print(u)
+        if i < 10:
+            a = [x[0][0], x[1][0], x[2][0], x[3][0]]
+            b = [x[0][1], x[1][1], x[2][1], x[3][1]]
+            c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
+            ax.scatter(a, b, c, c='orange')
         i += 1
+    ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')
+    plt.show()
     print(u)
     """
     print(x)
