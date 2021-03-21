@@ -22,9 +22,7 @@ def sort(x):
     xHelp = x
     for i in [0, 1, 2, 3]:
         y = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
-        print("y anfang:", y)
         y.sort()
-        print("y: ", y)
         for j in [0, 1, 2, 3]:
             if f(x[i]) == y[j]:
                 x[i], x[j] = x[j], x[i]     # swap
@@ -75,11 +73,16 @@ def iteration(m, x, e=list):
 
 
 def main(x):
-    """
-    while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):
+    #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
+    i = 0
+    while i < 10:
         xtest = sort(x)
         mtest = centre(x)
         u = iteration(mtest, xtest)
+        z = (f(x[3]) - f(x[0])) / (abs(f(x[3])) + abs(f(x[0])) + 1)
+        print("z", z)
+        print(u)
+        i += 1
     print(u)
     """
     print(x)
@@ -89,7 +92,7 @@ def main(x):
     print(mtest)
     u = iteration(mtest, xtest)
     print(u)
-
+    """
     #print(u)
     #t = [[4, 2], [1, 1], [0, 3], [3, 3]]
     #s = centre(t)
