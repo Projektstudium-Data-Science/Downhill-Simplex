@@ -6,7 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
+x = [[5, 0], [-1, 6], [-4, 3], [4, -2]]
 x1 = [x[0][0], x[1][0], x[2][0], x[3][0]]
 x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
 alpha = 1
@@ -44,16 +44,18 @@ def sort(x):
 
 def centre(x):
     # m = 1 / length_hint(x) * sum(x)  # Mittelpunkt
-    for i in [0, 1, 2, 3]:
+    for i in [0, 1, 2]:
         m[0] += x[i][0]
         m[1] += x[i][1]
-    m[0] = 1 / length_hint(x) * m[0]
-    m[1] = 1 / length_hint(x) * m[1]
+    m[0] = 1 / (length_hint(x)-1) * m[0]
+    m[1] = 1 / (length_hint(x)-1) * m[1]
     return m
 
 
 def iteration(m, x, e=list):
     r = [0, 0]
+    h = [0, 0]
+    c = [0, 0]
     r[0] = m[0] + alpha * (m[0] - x[3][0])  # reflexion
     r[1] = m[1] + alpha * (m[1] - x[3][1])
     if f(r) < f(x[0]):
@@ -66,20 +68,23 @@ def iteration(m, x, e=list):
             x[3] = r
             print("Reflexion: ", r)
     else:
-        if f(r) < f(x[3]):
+        if f(r) < f(x[2]):
             x[3] = r
-        if f(x[3]) > f(x[2]):
-            r[0] = x[3][0] + gamma * (m[0] - x[3][0])   # contraction
-            r[1] = x[3][1] + gamma * (m[1] - x[3][1])
-            if f(r) < f(x[3]):
-                x[3] = r
-                print("Kontraktion: ", r)
+        else:
+            if f(x[3]) < f(r):
+                h[0] = x[3][0]
+                h[1] = x[3][1]
+            else:
+                h[0] = r[0]
+                h[1] = r[1]
+            c[0] = h[0] + gamma * (m[0] - h[0])
+            c[1] = h[1] + gamma * (m[1] - h[1])
+            if f(c) < f(x[3]):
+                x[3] = c
             else:
                 for i in [0, 1, 2, 3]:
-                    if i != 0:
-                        x[i][0] = delta * (x[i][0] + x[0][0])    # shrink
-                        x[i][1] = delta * (x[i][1] + x[0][1])
-                        print("Shrink: ", x[i])
+                    x[i][0] = x[i][0] + delta * (x[0][0] - x[i][0])
+                    x[i][1] = x[i][1] + delta * (x[0][1] - x[i][1])
     return x[0]
 
 
@@ -101,11 +106,7 @@ def main(x):
             b = [x[0][1], x[1][1], x[2][1], x[3][1]]
             c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
             ax.scatter(a, b, c, c='orange')
-            a = raw_input('Next plot?\n')
-            if a == "1":
-                print
-                "Do something..I've skipped these details"
-            plt.clf()
+
         i += 1
     ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')
     plt.show()
