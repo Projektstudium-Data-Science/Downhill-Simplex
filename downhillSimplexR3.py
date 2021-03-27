@@ -101,7 +101,7 @@ def main(x):
             b = [x[0][1], x[1][1], x[2][1], x[3][1]]
             c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
             ax.scatter(a, b, c, c='orange')
-            a = raw_input('Next plot?\n')
+           # a = raw_input('Next plot?\n')
             if a == "1":
                 print
                 "Do something..I've skipped these details"
