@@ -9,7 +9,6 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
-
 root = Tk()
 root.title('Downhill Simplex Algorithm Visualisation')
 root.maxsize(900, 600)
@@ -37,6 +36,7 @@ def generate():
         x0[1] = 2.5
     print("x0 = ", x0)
     UI_frame.quit()
+
 
 #frame
 UI_frame = Frame(root, width=600, height=200, bg='grey')
@@ -71,10 +71,10 @@ delta = 0.5
 m = [0, 0]
 
 
-def spendley_regular_simplex(x0, l):
+def spendley_regular_simplex(x0_in, l):
     p = 1/(3*math.sqrt(2)) * (3 - 1 + math.sqrt(3 + 1))
     q = 1/(3*math.sqrt(2)) * (math.sqrt(3 + 1) - 1)
-    x[0] = x0
+    x[0] = x0_in
 
     for i in [1, 2, 3]:
         for j in [0, 1]:
@@ -112,13 +112,13 @@ def sort(x):
     return x
 
 
-def centre(x):
+def centre(data):
     # m = 1 / length_hint(x) * sum(x)  # Mittelpunkt
     for i in [0, 1, 2]:
-        m[0] += x[i][0]
-        m[1] += x[i][1]
-    m[0] = 1 / (length_hint(x)-1) * m[0]
-    m[1] = 1 / (length_hint(x)-1) * m[1]
+        m[0] += data[i][0]
+        m[1] += data[i][1]
+    m[0] = 1 / (length_hint(data)-1) * m[0]
+    m[1] = 1 / (length_hint(data)-1) * m[1]
     return m
 
 
@@ -165,10 +165,11 @@ def iteration(m, x):
 
 def main():
     #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
-   # x = spendley_regular_simplex([0, 0], 0.00025)
-   # x = random_bounds([-10, -8], [10, 8])
+    x = spendley_regular_simplex(x0, 0.7)
+    print(x)
+    #x = random_bounds([-10, -8], [10, 8])
     #x = random_bounds([0, 1], [6, 5])
-    x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
+    #x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
     x1 = [x[0][0], x[1][0], x[2][0], x[3][0]]
     x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]

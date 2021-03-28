@@ -87,8 +87,8 @@ def main(x):
     #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
     ax = plt.axes(projection='3d')
-    # ax.scatter(x1, x2, z, c='green')
-    plt.plot(x1, x2, z, c='green')
+    ax.scatter(x1, x2, z, c='green')
+#    plt.show()
     i = 0
     while i < 20:
         xtest = sort(x)
@@ -101,11 +101,6 @@ def main(x):
             b = [x[0][1], x[1][1], x[2][1], x[3][1]]
             c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
             ax.scatter(a, b, c, c='orange')
-           # a = raw_input('Next plot?\n')
-            if a == "1":
-                print
-                "Do something..I've skipped these details"
-            plt.clf()
         i += 1
     ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')
     plt.show()
