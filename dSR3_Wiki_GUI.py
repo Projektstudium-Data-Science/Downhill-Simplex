@@ -17,6 +17,7 @@ root.config(bg='black')
 
 #variables
 selected_func = StringVar()
+x0 = [0, 0]
 
 
 def drawData(data):
@@ -26,12 +27,23 @@ def drawData(data):
 
 def generate():
     print('Function Selected: ', selected_func.get())
+    try:
+        x0[0] = int(x0Entry.get())
+    except:
+        x0[0] = 3.1
+    try:
+        x0[1] = int(x1Entry.get())
+    except:
+        x0[1] = 2.5
+    print("x0 = ", x0)
+    UI_frame.quit()
+
 #frame
 UI_frame = Frame(root, width=600, height=200, bg='grey')
 UI_frame.grid(row=0, column=0, padx=10, pady=5)
 
 canvas = Canvas(root, width=600, height=380)
-canvas.grid(row=1, column=0, padx=10, pady=5)
+# canvas.grid(row=1, column=0, padx=10, pady=5)
 
 #User Interface Area
 #Row[0]
@@ -39,12 +51,12 @@ Label(UI_frame, text="Function: ", bg='grey').grid(row=0, column=0, padx=5, pady
 funcMenu = ttk.Combobox(UI_frame, textvariable=selected_func, values=['Himmelblau', 'Standard Optimierungsproblem'])
 funcMenu.grid(row=0, column=1, padx=5, pady=5)
 funcMenu.current(0)
-Button(UI_frame, text="Generate", command=generate(), bg='red').grid(row=0, column=2, padx=5, pady=5)
+Button(UI_frame, text="Generate", command=generate).grid(row=0, column=2, padx=5, pady=5)
 #Row[1]
 Label(UI_frame, text="Startpunkt", bg='grey').grid(row=1, column=0, padx=5, pady=5, sticky=W)
 Label(UI_frame, text="x1: ", bg='grey').grid(row=1, column=1, padx=5, pady=5, sticky=W)
-x1Entry = Entry(UI_frame)
-x1Entry.grid(row=1, column=2, padx=5, pady=5, sticky=W)
+x0Entry = Entry(UI_frame)
+x0Entry.grid(row=1, column=2, padx=5, pady=5, sticky=W)
 Label(UI_frame, text="x2: ", bg='grey').grid(row=1, column=3, padx=5, pady=5, sticky=W)
 x1Entry = Entry(UI_frame)
 x1Entry.grid(row=1, column=4, padx=5, pady=5, sticky=W)
@@ -161,22 +173,23 @@ def main():
     x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
 
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1, projection='3d')
-
-    A = [x[0][0], x[0][1], f(x[0])]
-    B = [x[1][0], x[1][1], f(x[1])]
-    C = [x[2][0], x[2][1], f(x[2])]
-    D = [x[3][0], x[3][1], f(x[3])]
-    TETRA = [[A, B, C],
-             [A, C, D],
-             [A, D, B]]
-
-    ax.add_collection3d(Poly3DCollection([TETRA]))
-
     ax = plt.axes(projection='3d')
+
+    a1, b1, c1 = [x[0][0], x[1][0]], [x[0][1], x[1][1]], [z[0], z[1]]
+    a2, b2, c2 = [x[0][0], x[2][0]], [x[0][1], x[2][1]], [z[0], z[2]]
+    a3, b3, c3 = [x[0][0], x[3][0]], [x[0][1], x[3][1]], [z[0], z[3]]
+    a4, b4, c4 = [x[1][0], x[2][0]], [x[1][1], x[2][1]], [z[1], z[2]]
+    a5, b5, c5 = [x[1][0], x[3][0]], [x[1][1], x[3][1]], [z[1], z[3]]
+    a6, b6, c6 = [x[2][0], x[3][0]], [x[2][1], x[3][1]], [z[2], z[3]]
+    plt.plot(a1, b1, c1, color='green')
+    plt.plot(a2, b2, c2, color='green')
+    plt.plot(a3, b3, c3, color='green')
+    plt.plot(a4, b4, c4, color='green')
+    plt.plot(a5, b5, c5, color='green')
+    plt.plot(a6, b6, c6, color='green')
+
     # ax.scatter(x1, x2, z, c='green')
-    plt.plot(x1, x2, z, c='green')
+    # plt.plot(x1, x2, z, c='green')
     i = 0
     print(x)
     while i < 20:
