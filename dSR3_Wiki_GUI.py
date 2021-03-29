@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import ttk
-import random
+import time
 
 from operator import length_hint
 import math
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
@@ -203,11 +204,15 @@ def main():
             a = [x[0][0], x[1][0], x[2][0], x[3][0]]
             b = [x[0][1], x[1][1], x[2][1], x[3][1]]
             c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
-            ax.scatter(a, b, c, c='orange')
+            # time.sleep(0.2)   # Sleep funktioniert nur für Berechnung aber nicht für Darstellung
+            #plt.show()
+            #ax.scatter(a, b, c, c='orange')
+            ax.scatter(a, b, c, c=np.linalg.norm([a,b,c], axis=0))
+            #time.sleep(0.2)
 
         i += 1
     ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')
-    plt.show()
+    plt.show()      # eventuell den plot in while-Schleife und dann jedes Mal quitten und neu starten
     print(u)
     """
     print(x)
