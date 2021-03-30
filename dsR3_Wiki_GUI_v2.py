@@ -5,15 +5,42 @@ import time
 from operator import length_hint
 import math
 import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib.animation import FuncAnimation
 from mpl_toolkits.mplot3d import Axes3D
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-
+import numpy as np
 
 root = Tk()
 root.title('Downhill Simplex Algorithm Visualisation')
 root.maxsize(900, 600)
 root.config(bg='black')
+
+x_data = []
+y_data = []
+z_data = []
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+line, = ax.plot(0, 0, 0)
+
+x = [[0,0], [0,0], [0,0], [0,0], [0,0]]
+
+z = [0, 0, 0, 0]
+a1, b1, c1 = [x[0][0], x[1][0]], [x[0][1], x[1][1]], [z[0], z[1]]
+a2, b2, c2 = [x[0][0], x[2][0]], [x[0][1], x[2][1]], [z[0], z[2]]
+a3, b3, c3 = [x[0][0], x[3][0]], [x[0][1], x[3][1]], [z[0], z[3]]
+a4, b4, c4 = [x[1][0], x[2][0]], [x[1][1], x[2][1]], [z[1], z[2]]
+a5, b5, c5 = [x[1][0], x[3][0]], [x[1][1], x[3][1]], [z[1], z[3]]
+a6, b6, c6 = [x[2][0], x[3][0]], [x[2][1], x[3][1]], [z[2], z[3]]
+p1 = ax.plot(a1, b1, c1, color='green')
+p2 = ax.plot(a2, b2, c2, color='green')
+p3 = ax.plot(a3, b3, c3, color='green')
+p4 = ax.plot(a4, b4, c4, color='green')
+p5 = ax.plot(a5, b5, c5, color='green')
+p6 = ax.plot(a6, b6, c6, color='green')
+
+
+
+#fig, ax = plt.axes(projection='3d')
 
 #variables
 selected_func = StringVar()
@@ -26,7 +53,7 @@ def drawData(data):
 
 
 def generate():
-    print('Function Selected : ', selected_func.get())
+    print('Function Selected: ', selected_func.get())
     try:
         x0[0] = int(x0Entry.get())
     except:
@@ -164,6 +191,37 @@ def iteration(m, x):
     return x[0]
 
 
+def update_plot(frame):
+    ax.clear()
+    global p1
+    p1 = ax.plot(a1, b1, c1, color='green')
+    """
+    global p1, p2, p3, p4, p5, p6
+    
+    p1.remove()
+    p2.remove()
+    p3.remove()
+    p4.remove()
+    p5.remove()
+    p6.remove()
+    
+    z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
+    a1, b1, c1 = [x[0][0], x[1][0]], [x[0][1], x[1][1]], [z[0], z[1]]
+    a2, b2, c2 = [x[0][0], x[2][0]], [x[0][1], x[2][1]], [z[0], z[2]]
+    a3, b3, c3 = [x[0][0], x[3][0]], [x[0][1], x[3][1]], [z[0], z[3]]
+    a4, b4, c4 = [x[1][0], x[2][0]], [x[1][1], x[2][1]], [z[1], z[2]]
+    a5, b5, c5 = [x[1][0], x[3][0]], [x[1][1], x[3][1]], [z[1], z[3]]
+    a6, b6, c6 = [x[2][0], x[3][0]], [x[2][1], x[3][1]], [z[2], z[3]]
+    p1 = ax.plot(a1, b1, c1, color='green')
+    p2 = ax.plot(a2, b2, c2, color='green')
+    p3 = ax.plot(a3, b3, c3, color='green')
+    p4 = ax.plot(a4, b4, c4, color='green')
+    p5 = ax.plot(a5, b5, c5, color='green')
+    p6 = ax.plot(a6, b6, c6, color='green')
+    fig.canvas.draw_idle()
+    """
+
+
 def main():
     #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
     x = spendley_regular_simplex(x0, 0.7)
@@ -175,20 +233,18 @@ def main():
     x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
 
-    ax = plt.axes(projection='3d')
-
     a1, b1, c1 = [x[0][0], x[1][0]], [x[0][1], x[1][1]], [z[0], z[1]]
     a2, b2, c2 = [x[0][0], x[2][0]], [x[0][1], x[2][1]], [z[0], z[2]]
     a3, b3, c3 = [x[0][0], x[3][0]], [x[0][1], x[3][1]], [z[0], z[3]]
     a4, b4, c4 = [x[1][0], x[2][0]], [x[1][1], x[2][1]], [z[1], z[2]]
     a5, b5, c5 = [x[1][0], x[3][0]], [x[1][1], x[3][1]], [z[1], z[3]]
     a6, b6, c6 = [x[2][0], x[3][0]], [x[2][1], x[3][1]], [z[2], z[3]]
-    plt.plot(a1, b1, c1, color='green')
-    plt.plot(a2, b2, c2, color='green')
-    plt.plot(a3, b3, c3, color='green')
-    plt.plot(a4, b4, c4, color='green')
-    plt.plot(a5, b5, c5, color='green')
-    plt.plot(a6, b6, c6, color='green')
+    ax.plot(a1, b1, c1, color='green')
+    ax.plot(a2, b2, c2, color='green')
+    ax.plot(a3, b3, c3, color='green')
+    ax.plot(a4, b4, c4, color='green')
+    ax.plot(a5, b5, c5, color='green')
+    ax.plot(a6, b6, c6, color='green')
 
     # ax.scatter(x1, x2, z, c='green')
     # plt.plot(x1, x2, z, c='green')
@@ -201,14 +257,13 @@ def main():
         print("x: ", x)
         print(u)
         if i < 10:
-            a = [x[0][0], x[1][0], x[2][0], x[3][0]]
-            b = [x[0][1], x[1][1], x[2][1], x[3][1]]
-            c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
+            #a = [x[0][0], x[1][0], x[2][0], x[3][0]]
+            #b = [x[0][1], x[1][1], x[2][1], x[3][1]]
+            #c = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
             # time.sleep(0.2)   # Sleep funktioniert nur für Berechnung aber nicht für Darstellung
-            #plt.show()
             #ax.scatter(a, b, c, c='orange')
-            ax.scatter(a, b, c, c=np.linalg.norm([a,b,c], axis=0))
             #time.sleep(0.2)
+         animation = FuncAnimation(fig, func=update_plot, frames=10, interval=10)
 
         i += 1
     ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')

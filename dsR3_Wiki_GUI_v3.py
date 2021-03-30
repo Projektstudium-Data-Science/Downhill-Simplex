@@ -6,9 +6,7 @@ from operator import length_hint
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-
+import csv
 
 root = Tk()
 root.title('Downhill Simplex Algorithm Visualisation')
@@ -165,15 +163,26 @@ def iteration(m, x):
 
 
 def main():
-    #while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
+    # while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
     x = spendley_regular_simplex(x0, 0.7)
     print(x)
-    #x = random_bounds([-10, -8], [10, 8])
-    #x = random_bounds([0, 1], [6, 5])
-    #x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
+    # x = random_bounds([-10, -8], [10, 8])
+    # x = random_bounds([0, 1], [6, 5])
+    # x = [[3.5, 3], [3.1, 2.5], [-3, 3], [4, -2]]
     x1 = [x[0][0], x[1][0], x[2][0], x[3][0]]
     x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
+
+    header = ["x[0][0]", "x[0][1]", "f(x[0])", "x[1][0]", "x[1][1]", "f(x[1])", "x[2][0]", "x[2][1]", "f(x[2])",
+              "x[3][0]",
+              'x[3][1]', "f(x[3])"]
+    row = [x[0][0], x[0][1], f(x[0]), x[1][0], x[1][1], f(x[1]), x[2][0], x[2][1], f(x[2]), x[3][0],
+           x[3][1], f(x[3])]
+
+    with open('nelder_mead.csv', 'w') as cs:
+        write = csv.writer(cs)
+        write.writerow(header)
+        write.writerow(row)
 
     ax = plt.axes(projection='3d')
 
@@ -208,7 +217,14 @@ def main():
             #plt.show()
             #ax.scatter(a, b, c, c='orange')
             ax.scatter(a, b, c, c=np.linalg.norm([a,b,c], axis=0))
-            #time.sleep(0.2)
+
+            row = [x[0][0], x[0][1], f(x[0]), x[1][0], x[1][1], f(x[1]), x[2][0], x[2][1], f(x[2]), x[3][0],
+                   x[3][1], f(x[3])]
+
+            with open('nelder_mead.csv', 'a') as cs:
+                write = csv.writer(cs)
+                write.writerow(row)
+            # time.sleep(0.2)
 
         i += 1
     ax.scatter(x[0][0], x[0][1], f(x[0]), c='red')
