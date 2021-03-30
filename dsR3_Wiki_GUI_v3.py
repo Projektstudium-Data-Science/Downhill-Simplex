@@ -28,11 +28,11 @@ def generate():
     try:
         x0[0] = int(x0Entry.get())
     except:
-        x0[0] = 3.1
+        x0[0] = -3
     try:
         x0[1] = int(x1Entry.get())
     except:
-        x0[1] = 2.5
+        x0[1] = 3
     print("x0 = ", x0)
     UI_frame.quit()
 
@@ -173,16 +173,20 @@ def main():
     x2 = [x[0][1], x[1][1], x[2][1], x[3][1]]
     z = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]
 
-    header = ["x[0][0]", "x[0][1]", "f(x[0])", "x[1][0]", "x[1][1]", "f(x[1])", "x[2][0]", "x[2][1]", "f(x[2])",
-              "x[3][0]",
-              'x[3][1]', "f(x[3])"]
-    row = [x[0][0], x[0][1], f(x[0]), x[1][0], x[1][1], f(x[1]), x[2][0], x[2][1], f(x[2]), x[3][0],
-           x[3][1], f(x[3])]
+    header = ["x1", "x2", "f(x1, x2)", "Iteration"]
+
+    row1 = [x[0][0], x[0][1], f(x[0]), '0']
+    row2 = [x[1][0], x[1][1], f(x[1]), '0']
+    row3 = [x[2][0], x[2][1], f(x[2]), '0']
+    row4 = [x[3][0], x[3][1], f(x[3]), '0']
 
     with open('nelder_mead.csv', 'w') as cs:
         write = csv.writer(cs)
         write.writerow(header)
-        write.writerow(row)
+        write.writerow(row1)
+        write.writerow(row2)
+        write.writerow(row3)
+        write.writerow(row4)
 
     ax = plt.axes(projection='3d')
 
@@ -201,7 +205,7 @@ def main():
 
     # ax.scatter(x1, x2, z, c='green')
     # plt.plot(x1, x2, z, c='green')
-    i = 0
+    i = 1
     print(x)
     while i < 20:
         xtest = sort(x)
@@ -218,12 +222,17 @@ def main():
             #ax.scatter(a, b, c, c='orange')
             ax.scatter(a, b, c, c=np.linalg.norm([a,b,c], axis=0))
 
-            row = [x[0][0], x[0][1], f(x[0]), x[1][0], x[1][1], f(x[1]), x[2][0], x[2][1], f(x[2]), x[3][0],
-                   x[3][1], f(x[3])]
+            row1 = [x[0][0], x[0][1], f(x[0]), str(i)]
+            row2 = [x[1][0], x[1][1], f(x[1]), str(i)]
+            row3 = [x[2][0], x[2][1], f(x[2]), str(i)]
+            row4 = [x[3][0], x[3][1], f(x[3]), str(i)]
 
             with open('nelder_mead.csv', 'a') as cs:
                 write = csv.writer(cs)
-                write.writerow(row)
+                write.writerow(row1)
+                write.writerow(row2)
+                write.writerow(row3)
+                write.writerow(row4)
             # time.sleep(0.2)
 
         i += 1
