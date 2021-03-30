@@ -125,9 +125,14 @@ def random_bounds(lb, ub):
 
 
 def f(v):
-    z = math.pow(math.pow(v[0], 2) + v[1] - 11, 2) + math.pow(v[0] + math.pow(v[1], 2) - 7, 2)    # Himmelblau-Funktion
-    # z = 2 * math.pow(x1, 2) - 2 * (math.pow(x2, 2) - 11)
-    #z = math.pow(v[0] - 6, 2) + 2 * math.pow(v[1] - 3, 2)
+    if (selection == "Himmelblau"):
+        z = math.pow(math.pow(v[0], 2) + v[1] - 11, 2) + math.pow(v[0] + math.pow(v[1], 2) - 7, 2)  #Himmelblau-Funktion
+        print('HIMMELBLAU')
+    elif (selection == 'Rosenbrock'):
+        z = math.pow(1 - v[0], 2) + 100 * math.pow((v[1] - math.pow(v[0], 2)), 2)                    #Rosenbrock-Funktion
+        print('ROSENBROCK')
+    else:
+        print("FEHLER")
     return z
 
 
@@ -197,7 +202,7 @@ def iteration(m, x):
 def main():
     if(check == None):
         return None
-    
+
     # while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):     # math.pow(10, -15)
     x = spendley_regular_simplex(x0, 0.7)
     print(x)
