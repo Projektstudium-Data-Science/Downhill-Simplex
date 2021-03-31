@@ -4,6 +4,7 @@ from tkinter import ttk, messagebox
 
 from operator import length_hint
 import math
+import os
 
 """
 GUI Implementation
@@ -243,7 +244,7 @@ def main():
                 write.writerow(row4)
 
         i += 1
-
+    os.system("CSV_Visualization.py")
 
 # call the main function
 if __name__ == '__main__':
