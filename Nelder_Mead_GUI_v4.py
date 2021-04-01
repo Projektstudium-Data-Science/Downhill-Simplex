@@ -244,8 +244,9 @@ def main():
                 write.writerow(row4)
 
         i += 1
-    os.system("CSV_Visualization.py")
+    
 
 # call the main function
 if __name__ == '__main__':
     main()
+    os.system("CSV_Visualization.py")
