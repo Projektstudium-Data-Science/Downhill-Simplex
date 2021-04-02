@@ -230,6 +230,7 @@ def main():
         xtest = sort(x)     # sort x-values according to function values
         mtest = centre(x)   # calculate centre
         u = iteration(mtest, xtest)     # iteration of the algorithm
+
         if i < 10:
             row1 = [x[0][0], x[0][1], f(x[0]), str(i)]
             row2 = [x[1][0], x[1][1], f(x[1]), str(i)]
@@ -245,6 +246,25 @@ def main():
 
         i += 1
 
+        """
+        xtest = sort(x)  # sort x-values according to function values
+        mtest = centre(x)  # calculate centre
+        u = iteration(mtest, xtest)  # iteration of the algorithm
+        # if i < 10:
+        row1 = [x[0][0], x[0][1], f(x[0]), str(i)]
+        row2 = [x[1][0], x[1][1], f(x[1]), str(i)]
+        row3 = [x[2][0], x[2][1], f(x[2]), str(i)]
+        row4 = [x[3][0], x[3][1], f(x[3]), str(i)]
+
+        with open('nelder_mead.csv', 'a') as cs:
+            write = csv.writer(cs)
+            write.writerow(row1)
+            write.writerow(row2)
+            write.writerow(row3)
+            write.writerow(row4)
+
+        i += 1
+    """
 
 # call the main function
 if __name__ == '__main__':

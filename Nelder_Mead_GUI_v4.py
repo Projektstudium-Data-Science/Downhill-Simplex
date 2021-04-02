@@ -11,7 +11,7 @@ GUI Implementation
 """
 
 # variable
-x0 = [0, 0]   # initial guess
+x0 = [0, 0]  # initial guess
 check_float = None  # check if a float-value is added to the input field
 
 
@@ -19,16 +19,16 @@ check_float = None  # check if a float-value is added to the input field
 def optimize_clicked():
     global check_float
     global selection
-    selection = function_Menu.get()     # selection of a optimization function
+    selection = function_Menu.get()  # selection of a optimization function
     try:
-        x0[0] = float(entry_x1.get())   # x1 start value
-        x0[1] = float(entry_x2.get())   # x2 start value
+        x0[0] = float(entry_x1.get())  # x1 start value
+        x0[1] = float(entry_x2.get())  # x2 start value
         check_float = True
     except:
         messagebox.showerror("Type Error", "The x1/x2 - values must be of the type float. Please try again.")
         check_float = None
     if check_float:
-        root.destroy() # automatically closes the window if the algorithm finishes successfully
+        root.destroy()  # automatically closes the window if the algorithm finishes successfully
 
 
 # Root & UI
@@ -105,10 +105,11 @@ m = [0, 0]
 Initial Simplex for Nelder Mead
 """
 
+
 # Spendley´s et al regular simplex
 def spendley_regular_simplex(x0_in, size):
-    p = 1/(3*math.sqrt(2)) * (3 - 1 + math.sqrt(3 + 1))
-    q = 1/(3*math.sqrt(2)) * (math.sqrt(3 + 1) - 1)
+    p = 1 / (3 * math.sqrt(2)) * (3 - 1 + math.sqrt(3 + 1))
+    q = 1 / (3 * math.sqrt(2)) * (math.sqrt(3 + 1) - 1)
     x[0] = x0_in
 
     for i in [1, 2, 3]:
@@ -137,9 +138,10 @@ Steps for Algorithm Iteration
 # Optimization Function
 def f(v):
     if selection == "Himmelblau":
-        z = math.pow(math.pow(v[0], 2) + v[1] - 11, 2) + math.pow(v[0] + math.pow(v[1], 2) - 7, 2) # Himmelblau-Funktion
+        z = math.pow(math.pow(v[0], 2) + v[1] - 11, 2) + math.pow(v[0] + math.pow(v[1], 2) - 7,
+                                                                  2)  # Himmelblau-Funktion
     else:
-        z = math.pow(1 - v[0], 2) + 100 * math.pow((v[1] - math.pow(v[0], 2)), 2)                  # Rosenbrock-Funktion
+        z = math.pow(1 - v[0], 2) + 100 * math.pow((v[1] - math.pow(v[0], 2)), 2)  # Rosenbrock-Funktion
 
     return z
 
@@ -147,11 +149,11 @@ def f(v):
 # Sort x-values according to their function value, ascending
 def sort(x):
     for i in [0, 1, 2, 3]:
-        y = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]    # calculate function values
-        y.sort()    # sort f-values ascending
+        y = [f(x[0]), f(x[1]), f(x[2]), f(x[3])]  # calculate function values
+        y.sort()  # sort f-values ascending
         for j in [0, 1, 2, 3]:
             if f(x[i]) == y[j]:
-                x[i], x[j] = x[j], x[i]     # swap values according to function values
+                x[i], x[j] = x[j], x[i]  # swap values according to function values
     return x
 
 
@@ -160,8 +162,8 @@ def centre(data):
     for i in [0, 1, 2]:
         m[0] += data[i][0]
         m[1] += data[i][1]
-    m[0] = 1 / (length_hint(data)-1) * m[0]
-    m[1] = 1 / (length_hint(data)-1) * m[1]
+    m[0] = 1 / (length_hint(data) - 1) * m[0]
+    m[1] = 1 / (length_hint(data) - 1) * m[1]
     return m
 
 
@@ -171,10 +173,10 @@ def iteration(m, x):
     h = [0, 0]
     c = [0, 0]
     e = [0, 0]
-    r[0] = m[0] + alpha * (m[0] - x[3][0])      # reflexion
+    r[0] = m[0] + alpha * (m[0] - x[3][0])  # reflexion
     r[1] = m[1] + alpha * (m[1] - x[3][1])
     if f(r) < f(x[0]):
-        e[0] = m[0] + beta * (m[0] - x[3][0])   # expansion
+        e[0] = m[0] + beta * (m[0] - x[3][0])  # expansion
         e[1] = m[1] + beta * (m[1] - x[3][1])
         if f(e) < f(r):
             x[3] = e
@@ -190,14 +192,14 @@ def iteration(m, x):
             else:
                 h[0] = r[0]
                 h[1] = r[1]
-            c[0] = h[0] + gamma * (m[0] - h[0])     # contraction
+            c[0] = h[0] + gamma * (m[0] - h[0])  # contraction
             c[1] = h[1] + gamma * (m[1] - h[1])
             if f(c) < f(x[3]):
                 x[3] = c
             else:
                 for i in [0, 1, 2, 3]:
                     if i != 0:
-                        x[i][0] = x[i][0] + delta * (x[0][0] - x[i][0])     # Shrink
+                        x[i][0] = x[i][0] + delta * (x[0][0] - x[i][0])  # Shrink
                         x[i][1] = x[i][1] + delta * (x[0][1] - x[i][1])
     return x[0]
 
@@ -206,9 +208,9 @@ def main():
     if check_float == None:
         return None
 
-    x = spendley_regular_simplex(x0, 0.7)   # initialization of the simplex
+    x = spendley_regular_simplex(x0, 0.7)  # initialization of the simplex
 
-    header = ["x1", "x2", "f(x1, x2)", "Iteration"]     # header of the csv-sheet
+    header = ["x1", "x2", "f(x1, x2)", "Iteration"]  # header of the csv-sheet
 
     row1 = [x[0][0], x[0][1], f(x[0]), '0']
     row2 = [x[1][0], x[1][1], f(x[1]), '0']
@@ -227,10 +229,10 @@ def main():
     i = 1
     # alternativ: while (f(x[3]) - f(x[0]))/(abs(f(x[3])) + abs(f(x[0])) + 1) < math.pow(10, -15):
     while i < 20:
-        xtest = sort(x)     # sort x-values according to function values
-        mtest = centre(x)   # calculate centre
-        u = iteration(mtest, xtest)     # iteration of the algorithm
-        if i < 10:
+        xtest = sort(x)  # sort x-values according to function values
+        mtest = centre(x)  # calculate centre
+        u = iteration(mtest, xtest)  # iteration of the algorithm
+        if i < 20:
             row1 = [x[0][0], x[0][1], f(x[0]), str(i)]
             row2 = [x[1][0], x[1][1], f(x[1]), str(i)]
             row3 = [x[2][0], x[2][1], f(x[2]), str(i)]
@@ -244,9 +246,9 @@ def main():
                 write.writerow(row4)
 
         i += 1
-    
+
 
 # call the main function
 if __name__ == '__main__':
     main()
-    os.system("CSV_Visualization.py")
+    exec(open('CSV_Visualization.py').read())
