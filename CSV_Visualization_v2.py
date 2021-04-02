@@ -34,3 +34,5 @@ fig.update_traces(marker=dict(size=5,
                               line=dict(width=2,
                                         color='DarkSlateGrey')),
                   selector=dict(mode='markers'))
+
+pio.show(fig)
