@@ -20,13 +20,14 @@ fig = px.scatter_3d(
     x='x1',
     y='x2',
     z='f(x1, x2)',
+    #size='x1',
     template='ggplot2',
     title='Nelder Mead Algorithm - Visualization',
     height=700,
     animation_frame='Iteration',
-    range_x=[min_x1, max_x1],
-    range_y=[min_x2, max_x2],
-    range_z=[min_z, max_z]
+    range_x=[min_x1-0.5, max_x1+0.5],
+    range_y=[min_x2-0.5, max_x2+0.5],
+    range_z=[min_z-0.5, max_z+0.5]
 )
 
 pio.show(fig)
