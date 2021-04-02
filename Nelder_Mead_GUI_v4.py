@@ -17,7 +17,7 @@ check_float = None  # check if a float-value is added to the input field
 
 # optimize_clicked function (is called when the user clicks on the "Optimize!" Button)
 def optimize_clicked():
-
+    global check_float
     global selection
     selection = function_Menu.get()     # selection of a optimization function
     try:
