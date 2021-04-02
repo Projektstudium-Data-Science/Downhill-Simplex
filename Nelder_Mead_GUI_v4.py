@@ -205,17 +205,18 @@ def iteration(m, x):
 
 
 def main():
+    global selection
     if check_float == None:
         return None
 
     x = spendley_regular_simplex(x0, 0.7)  # initialization of the simplex
 
-    header = ["x1", "x2", "f(x1, x2)", "Iteration"]  # header of the csv-sheet
+    header = ["x1", "x2", "f(x1, x2)", "Iteration", "Algorithmus"]  # header of the csv-sheet
 
-    row1 = [x[0][0], x[0][1], f(x[0]), '0']
-    row2 = [x[1][0], x[1][1], f(x[1]), '0']
-    row3 = [x[2][0], x[2][1], f(x[2]), '0']
-    row4 = [x[3][0], x[3][1], f(x[3]), '0']
+    row1 = [x[0][0], x[0][1], f(x[0]), '0', selection]
+    row2 = [x[1][0], x[1][1], f(x[1]), '0', selection]
+    row3 = [x[2][0], x[2][1], f(x[2]), '0', selection]
+    row4 = [x[3][0], x[3][1], f(x[3]), '0', selection]
 
     # write x, y, z values to csv sheets:
     with open('nelder_mead.csv', 'w') as cs:
@@ -233,10 +234,10 @@ def main():
         mtest = centre(x)  # calculate centre
         u = iteration(mtest, xtest)  # iteration of the algorithm
         if i < 20:
-            row1 = [x[0][0], x[0][1], f(x[0]), str(i)]
-            row2 = [x[1][0], x[1][1], f(x[1]), str(i)]
-            row3 = [x[2][0], x[2][1], f(x[2]), str(i)]
-            row4 = [x[3][0], x[3][1], f(x[3]), str(i)]
+            row1 = [x[0][0], x[0][1], f(x[0]), str(i), selection]
+            row2 = [x[1][0], x[1][1], f(x[1]), str(i), selection]
+            row3 = [x[2][0], x[2][1], f(x[2]), str(i), selection]
+            row4 = [x[3][0], x[3][1], f(x[3]), str(i), selection]
 
             with open('nelder_mead.csv', 'a') as cs:
                 write = csv.writer(cs)
@@ -251,4 +252,4 @@ def main():
 # call the main function
 if __name__ == '__main__':
     main()
-    exec(open('CSV_Visualization.py').read())
+    exec(open('CSV_Visualization_v2.py').read())
