@@ -22,7 +22,6 @@ fig = px.scatter_3d(
     z='f(x1, x2)',
     template='ggplot2',
     title='Nelder Mead Algorithm - Function ' + str(func[1]) + '\t\t\t\t\t\t Optimal values: (' + str(opt_x1[-1]) + ', ' + str(opt_x2[-1]) + ')',
-    height=700,
     animation_frame='Iteration',
     range_x=[min_x1-0.5, max_x1+0.5],
     range_y=[min_x2-0.5, max_x2+0.5],
