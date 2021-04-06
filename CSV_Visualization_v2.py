@@ -38,16 +38,19 @@ fig.update_traces(projection_x=0.67, projection_y=0.67, projection_z=0.67,
 """
 fig.update_layout(scene=dict(
                     xaxis=dict(
+                         nticks=8,
                          backgroundcolor="rgb(200, 200, 230)",
                          gridcolor="white",
                          showbackground=True,
                          zerolinecolor="white",),
                     yaxis=dict(
+                        nticks=8,
                         backgroundcolor="rgb(230, 200,230)",
                         gridcolor="white",
                         showbackground=True,
                         zerolinecolor="white"),
                     zaxis=dict(
+                        nticks=8,
                         backgroundcolor="rgb(230, 230,200)",
                         gridcolor="white",
                         showbackground=True,
