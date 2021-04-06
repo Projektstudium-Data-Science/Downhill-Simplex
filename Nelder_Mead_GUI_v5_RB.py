@@ -11,7 +11,7 @@ GUI Implementation
 """
 
 # variable
-x0 = [0, 0]  # initial guess
+x0 = [[-5, -5], [5, 5]]  # initial bounds
 check_float = None  # check if a float-value is added to the input field
 
 
@@ -21,8 +21,10 @@ def optimize_clicked():
     global selection
     selection = function_Menu.get()  # selection of a optimization function
     try:
-        x0[0] = float(entry_x1.get())  # x1 start value
-        x0[1] = float(entry_x2.get())  # x2 start value
+        x0[0][0] = float(entry_lb_x1.get())  # x1 start value
+        x0[0][1] = float(entry_lb_x2.get())  # x2 start value
+        x0[1][0] = float(entry_ub_x1.get())  # x1 start value
+        x0[1][1] = float(entry_ub_x2.get())  # x2 start value
         check_float = True
     except:
         messagebox.showerror("Type Error", "The x1/x2 - values must be of the type float. Please try again.")
@@ -37,7 +39,7 @@ root.title('Nelder Mead Visualizer')
 root.resizable(0, 0)
 
 # Canvas
-canvas_gui = Canvas(root, width=750, height=300)
+canvas_gui = Canvas(root, width=1000, height=300)
 canvas_gui.pack()
 
 # Label Title
@@ -64,25 +66,43 @@ canvas_gui.create_window(67, 170, window=label_function)
 # Function Dropdown - Menu
 function_Menu = ttk.Combobox(root, values=['Himmelblau', 'Rosenbrock'])
 function_Menu.current(0)
-canvas_gui.create_window(174, 170, window=function_Menu)
+canvas_gui.create_window(200, 170, window=function_Menu)
 
-# Label x1 / x2
-label_x1 = Label(root, text='x1 - value:')
-label_x1.config(font=('Arial', 10), bg='lavender')
-canvas_gui.create_window(420, 170, window=label_x1)
+# Label Lower Bound x1 / x2
+label_lb_x1 = Label(root, text='Lower Bound x1:')
+label_lb_x1.config(font=('Arial', 10), bg='lavender')
+canvas_gui.create_window(400, 170, window=label_lb_x1)
 
-label_x2 = Label(root, text='x2 - value:')
-label_x2.config(font=('Arial', 10), bg='lavender')
-canvas_gui.create_window(420, 200, window=label_x2)
+label_lb_x2 = Label(root, text='Lower Bound x2:')
+label_lb_x2.config(font=('Arial', 10), bg='lavender')
+canvas_gui.create_window(400, 200, window=label_lb_x2)
 
-# Entry x1 / x2
-entry_x1 = Entry(root, textvariable='x1_value')
-entry_x1.config(bg='lavender')
-canvas_gui.create_window(523, 170, window=entry_x1)
+# Label Upper Bound x1 / x2
+label_ub_x1 = Label(root, text='Upper Bound x1:')
+label_ub_x1.config(font=('Arial', 10), bg='lavender')
+canvas_gui.create_window(750, 170, window=label_ub_x1)
 
-entry_x2 = Entry(root, textvariable='x2_value')
-entry_x2.config(bg='lavender')
-canvas_gui.create_window(523, 200, window=entry_x2)
+label_ub_x2 = Label(root, text='Upper Bound x2:')
+label_ub_x2.config(font=('Arial', 10), bg='lavender')
+canvas_gui.create_window(750, 200, window=label_ub_x2)
+
+# Entry Lower Bound x1 / x2
+entry_lb_x1 = Entry(root, textvariable='lb_x1_value')
+entry_lb_x1.config(bg='lavender')
+canvas_gui.create_window(550, 170, window=entry_lb_x1)
+
+entry_lb_x2 = Entry(root, textvariable='lb_x2_value')
+entry_lb_x2.config(bg='lavender')
+canvas_gui.create_window(550, 200, window=entry_lb_x2)
+
+# Entry Upper Bound x1 / x2
+entry_ub_x1 = Entry(root, textvariable='ub_x1_value')
+entry_ub_x1.config(bg='lavender')
+canvas_gui.create_window(900, 170, window=entry_ub_x1)
+
+entry_ub_x2 = Entry(root, textvariable='ub_x2_value')
+entry_ub_x2.config(bg='lavender')
+canvas_gui.create_window(900, 200, window=entry_ub_x2)
 
 # Optimize Button
 button_optimize = Button(root, font=('Arial', 13), command=optimize_clicked, text='Optimize!', bg='lightcoral')
@@ -209,8 +229,7 @@ def main():
     if check_float == None:
         return None
 
-    # x = spendley_regular_simplex(x0, 0.7)  # initialization of the simplex
-    x = random_bounds([-5, -5], [5,5])
+    x = random_bounds([x0[0][0], x0[0][1]], [x0[1][0], x0[1][1]]) # initialization of the simplex
 
     header = ["x1", "x2", "f(x1, x2)", "Iteration", "Algorithmus"]  # header of the csv-sheet
 

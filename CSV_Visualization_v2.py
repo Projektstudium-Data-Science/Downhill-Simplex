@@ -32,7 +32,10 @@ fig.update_traces(marker=dict(size=5,
                               line=dict(width=2,
                                         color='DarkSlateGrey')),
                   selector=dict(mode='markers'))
-
+"""
+fig.update_traces(projection_x=0.67, projection_y=0.67, projection_z=0.67,
+                  selector=dict(mode='scatter3d'))
+"""
 fig.update_layout(scene=dict(
                     xaxis=dict(
                          backgroundcolor="rgb(200, 200, 230)",
@@ -49,7 +52,6 @@ fig.update_layout(scene=dict(
                         gridcolor="white",
                         showbackground=True,
                         zerolinecolor="white",),),)
-
 # fig.update_traces(marker_line=dict(), selector=dict(type='scattercarpet'))
 
 
