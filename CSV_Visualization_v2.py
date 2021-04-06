@@ -54,5 +54,6 @@ fig.update_layout(scene=dict(
                         zerolinecolor="white",),),)
 # fig.update_traces(marker_line=dict(), selector=dict(type='scattercarpet'))
 
+fig.update_layout(scene_aspectmode='cube')
 
 pio.show(fig)
