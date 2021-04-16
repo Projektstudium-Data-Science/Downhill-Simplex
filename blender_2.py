@@ -50,3 +50,7 @@ with open('/Users/fuerstchristian/nelder_mead_2.csv') as f:
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.delete(use_global=False)
+        
+        if i == 19 * 4:
+            bpy.ops.mesh.primitive_uv_sphere_add(radius=0.1, location=(float(data[i][0]), float(data[i][1]), float(data[i][2])))
+
