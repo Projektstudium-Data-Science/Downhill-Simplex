@@ -15,8 +15,12 @@ with open('/Users/fuerstchristian/nelder_mead_2.csv') as f:
     next(reader)
     for row in reader:
         data.append(row)
+    if row[4] == 'Himmelblau':
+        bpy.ops.mesh.primitive_z_function_surface(equation = "(x**2 + y - 11)**2 + (x + y**2 - 7)**2", div_x = 15, div_y = 15, size_x = 10, size_y = 10)
+    elif row[4] == 'Rosenbrock':
+        bpy.ops.mesh.primitive_z_function_surface(equation = "(1 - x)**2 + 100 * ((y - (x**2))**2)", div_x = 15, div_y = 15, size_x = 2, size_y = 2) 
         
-    i = 0   
+    i = 0
     
     while i <= 19 * 4:   
 
