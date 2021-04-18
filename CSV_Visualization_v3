@@ -40,9 +40,9 @@ fig.update_layout(
 
     scene=dict(
 
-        xaxis=dict(range=[-5, 5], autorange=False),
-        yaxis=dict(range=[-5, 5], autorange=False),
-        zaxis=dict(range=[0, 300], autorange=False),
+        xaxis=dict(range=[-5, 5], autorange=False, nticks=8),
+        yaxis=dict(range=[-5, 5], autorange=False, nticks=8),
+        zaxis=dict(range=[0, 300], autorange=False, nticks=8),
     )),
 
 frames = [go.Frame(data=[go.Scatter3d(
