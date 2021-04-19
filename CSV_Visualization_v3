@@ -25,7 +25,8 @@ while i <= (19*4):
 x = np.outer(np.linspace(-4, 4, 30), np.ones(30))
 y = x.copy().T  # transpose
 z = (x**2 + y - 11)**2 + (x + y**2 - 7)**2
-trace = go.Surface(x=x, y=y, z=z)
+
+trace = go.Surface(x=x, y=y, z=z,cmax=1, cmin=0 ,opacity=.2, showscale=False)
 data = [trace]
 layout = go.Layout(title='3D Surface plot')
 fig = go.Figure(data=data)
@@ -45,13 +46,22 @@ fig.update_layout(
         zaxis=dict(range=[0, 300], autorange=False, nticks=8),
     )),
 
-frames = [go.Frame(data=[go.Scatter3d(
+frames = [go.Frame(data=[go.Mesh3d(
     x=x1[k:k+4],
     y=x2[k:k+4],
-    z=x3[k:k+4])],
+    z=x3[k:k+4],
+    colorbar_title='z',
+    colorscale=[[0, 'red'],
+                [0.5, 'mediumturquoise'],
+                [1, 'magenta']],
+    # Intensity of each vertex, which will be interpolated and color-coded
+    intensity=np.linspace(0, 1, 4, endpoint=True),
+    intensitymode='cell', showscale=False)],
 
-    traces=[0],
+    traces=[1],
     name=f'frame{k}'
+
+
 ) for k in [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76]]
 fig.update(frames=frames)
 
@@ -63,5 +73,6 @@ fig.update_layout(updatemenus=[dict(type="buttons",
 
 # fix the size of the coordinate system to a cube
 fig.update_layout(scene_aspectmode='cube')
+
 
 fig.show()
