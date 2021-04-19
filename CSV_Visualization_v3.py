@@ -36,7 +36,10 @@ while i <= (19*4):
 # x, y, z values of the function
 x = np.outer(np.linspace(-4, 4, 30), np.ones(30))
 y = x.copy().T  # transpose
-z = (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+if func[-1] == 'Himmelblau':
+    z = (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
+elif func[-1] == 'Rosenbrock':
+    z = (1 - x)**2 + 100 * ((y - (x**2))**2)
 
 # plot a surface of the function
 trace = go.Surface(x=x, y=y, z=z,cmax=1, opacity=0.2, cmin=0, showscale=False)
