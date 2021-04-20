@@ -1,6 +1,7 @@
 import numpy as np
 import plotly.graph_objs as go
 import csv
+from plotly.subplots import make_subplots
 
 
 # define "play" and "pause" - Buttons
@@ -52,6 +53,15 @@ trace = go.Surface(x=x, y=y, z=z, cmax=1, cmin=0, showscale=False)  # , opacity=
 data = [trace]
 layout = go.Layout(title='3D Surface plot')
 fig = go.Figure(data=data)
+
+fig.add_scatter3d(
+    x=[3, -2.805118, -3.779319, 3.584428],
+    y=[2, 3.131312, -3.283186, -1.848126],
+    z=[0, 0, 0, 0],
+    mode='markers'
+)
+
+# surface with minima
 
 # add a scatter plot to the surface
 fig.add_scatter3d(
