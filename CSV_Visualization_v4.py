@@ -23,7 +23,7 @@ x2 = []
 x3 = []
 
 # Read CSV-File
-df = pd.read_csv('C:/Users/Andreas Schmid/Desktop/Projektstudium DataScience/nelder_mead.csv')
+df = pd.read_csv('nelder_mead.csv')
 
 # put values of the x1-, x2- and function-column into an array
 opt_x1 = df._get_column_array(0)
@@ -32,7 +32,7 @@ opt_x3 = df._get_column_array(2)
 func = df._get_column_array(4)
 
 # put all values of the csv file into one array
-with open('C:/Users/Andreas Schmid/Desktop/Projektstudium DataScience/nelder_mead.csv') as f:
+with open('nelder_mead.csv') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
