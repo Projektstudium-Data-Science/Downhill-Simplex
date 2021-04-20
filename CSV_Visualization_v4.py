@@ -49,7 +49,7 @@ elif func[-1] == 'Rosenbrock':
     z = (1 - x)**2 + 100 * ((y - (x**2))**2)
 
 # plot a surface of the function
-trace = go.Surface(x=x, y=y, z=z, cmax=1, cmin=0, showscale=False)  # , opacity=0.2
+trace = go.Surface(x=x, y=y, z=z, opacity=0.2, cmax=1, cmin=0, showscale=False)  # , opacity=0.2
 data = [trace]
 layout = go.Layout(title='3D Surface plot')
 fig = go.Figure(data=data)
@@ -107,7 +107,7 @@ frames.append(go.Frame(data=[go.Scatter3d(
     y=[x2[-1], x2[-1]],
     z=[x3[-1], x3[-1]])]))
 
-frames.append(go.Frame(data=[go.Surface(x=x, y=y, z=z, cmax=1, cmin=0, showscale=False)]))
+frames.append(go.Frame(data=[go.Surface(x=x, y=y, z=z, opacity=0.2, cmax=1, cmin=0, showscale=False)]))
 
 fig.update(frames=frames)
 
