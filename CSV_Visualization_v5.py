@@ -25,7 +25,7 @@ x3 = []
 func = []
 
 # put all values of the csv file into one array
-with open('C:/Users/Andreas Schmid/Desktop/Projektstudium DataScience/nelder_mead.csv') as f:
+with open('nelder_mead.csv') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
