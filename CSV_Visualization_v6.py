@@ -17,7 +17,6 @@ def pause():
     [[None], {"frame": {"duration": 0, "redraw": False}, "mode": "immediate", "transition": {"duration": 0}}])
 
 
-
 # parameters
 data = []
 x1 = []
@@ -34,7 +33,8 @@ with open('nelder_mead.csv') as f:
 
 # divide the values of the data-array into seperate x1, x2 and x3 arrays
 i = 0
-while i <= (19*4):
+array_length = len(data)
+while i < array_length:
     x1.append(float(data[i][0]))
     x2.append(float(data[i][1]))
     x3.append(float(data[i][2]))
@@ -50,12 +50,12 @@ elif func[-1] == 'Rosenbrock':
     z = (1 - x)**2 + 100 * ((y - (x**2))**2)
 
 # plot a surface of the function
-trace = go.Surface(x=x, y=y, z=z, opacity=0.2, cmax=1, cmin=0, showscale=False, hidesurface=True)  # , opacity=0.2
+trace = go.Surface(x=x, y=y, z=z, cmax=1, cmin=0, showscale=False, hidesurface=True)  # , opacity=0.2
 data = [trace]
 layout = go.Layout(title='3D Surface plot')
 fig = go.Figure(data=data)
 
-fig.add_trace(go.Surface(x=x, y=y, z=z,opacity=0.2, cmax=1, cmin=0, showscale=False,showlegend=False))
+fig.add_trace(go.Surface(x=x, y=y, z=z, cmax=1, cmin=0, showscale=False, showlegend=False))  # opacity=0.2
 
 # highlight minimum/minima with a red marker
 if func[-1] == 'Himmelblau':
@@ -74,7 +74,7 @@ if func[-1] == 'Himmelblau':
     )
     fig.add_trace(
         go.Scatter3d(
-            name='f(x,y)=(x^2+y−11)^2+(x+y^2−7)^2',
+            name='$f(x,y)=(x^2+y−11)^2+(x+y^2−7)^2$',
             mode='markers',
             x=[30],
             y=[30],
@@ -84,7 +84,7 @@ if func[-1] == 'Himmelblau':
                 size=5),
             showlegend=True,
             visible=True,
-            opacity=1
+            #opacity=1
         )
     )
 else:
@@ -92,9 +92,9 @@ else:
         go.Scatter3d(
             name='actual minimum',
             mode='markers',
-            x=[3, -2.805118, -3.779319, 3.584428],
-            y=[2, 3.131312, -3.283186, -1.848126],
-            z=[0, 0, 0, 0],
+            x=[1],
+            y=[1],
+            z=[0],
             marker=dict(
                 color='lime',
                 size=5 ),
@@ -103,7 +103,7 @@ else:
     )
     fig.add_trace(
         go.Scatter3d(
-            name='f(x,y)=(1-x)^2+100(y-x^2)^2',
+            name='$f(x,y)=(1-x)^2+100(y-x^2)^2$',
             mode='markers',
             x=[30],
             y=[30],
@@ -113,7 +113,7 @@ else:
                 size=5),
             showlegend=True,
             visible=True,
-            opacity=1
+            #opacity=1
         )
     )
 
@@ -134,11 +134,11 @@ fig.update_layout(
     )),
 
 # add title
-fig.update_layout(title=dict(text='Nelder Mead Algorithm - Function selected: '+ str(func[-1]),
+fig.update_layout(title=dict(text='Nelder Mead Algorithm - Function selected: ' + str(func[-1]),
                              font=dict(size=21)))
 
 # 20 iteration with 4 points each
-iterations = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76]
+iterations = range(0, 752, 4)
 
 # iteration frames of the algorithm
 frames = [go.Frame(data=[go.Mesh3d(
@@ -158,7 +158,7 @@ frames = [go.Frame(data=[go.Mesh3d(
 ) for k in iterations]
 
 optimalpoint = go.Scatter3d(
-    name='result: ≈ ('+ str(round(x1[-1],4)) + ', ' + str(round(x2[-1],4)) + ')',
+    name='result: ≈ (' + str(round(x1[-1], 4)) + ', ' + str(round(x2[-1], 4)) + ')',
     mode='markers',
     x=[x1[-1], x1[-1]],
     y=[x2[-1], x2[-1]],
@@ -168,20 +168,18 @@ optimalpoint = go.Scatter3d(
                 size=5),
     visible=True,
     showlegend=True,
-    opacity=1
+    # opacity=1
     )
 
-frames.append(go.Frame(data=[optimalpoint])
-    )
-
-
+frames.append(go.Frame(data=[optimalpoint]))
 
 fig.update(frames=frames)
 
 # add play button for animation of the algorithm
 fig.update_layout(updatemenus=[
                                dict(type="buttons", buttons=[play(), pause()],
-                                    font=dict(size=14),bgcolor='aliceblue',bordercolor="whitesmoke",borderwidth=3.5,y=0.77,x=1.38, direction='right')])
+                                    font=dict(size=14), bgcolor='aliceblue', bordercolor="whitesmoke", borderwidth=3.5,
+                                    y=0.77, x=1.38, direction='right')])
 
 # fix the size of the coordinate system to a cube
 fig.update_layout(scene_aspectmode='cube')
@@ -197,18 +195,18 @@ fig.update_layout(
         borderwidth=3.5,
         font=dict(size=14),
         itemsizing='constant',
-        itemwidth=60
+        #itemwidth=60
         ))
 
 fig.update_layout(
     title={
-        'y':0.95,
-        'x':0.5,
+        'y': 0.95,
+        'x': 0.5,
         'xanchor': 'center',
         'yanchor': 'top'},
     legend={
-        'y':0.95,
-        'x':1.1,
+        'y': 0.95,
+        'x': 1.1,
     })
 
 fig.update_layout(margin_r=540)
