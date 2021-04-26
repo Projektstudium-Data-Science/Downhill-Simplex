@@ -210,7 +210,7 @@ result = go.Scatter3d(
         + '<span style="color:red">'
         + '('+str(round(x1[-1],2)) + ', ' + str(round(x2[-1],2))
         +')<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Δ ≈ '
+        +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Δ ≈ '
         + str(round(abs(x3[-1]),2))
         +'</span>',
     mode='markers',
