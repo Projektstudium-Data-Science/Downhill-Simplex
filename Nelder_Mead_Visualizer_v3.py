@@ -7,6 +7,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from operator import length_hint
 
+x0 = [[-5, -5], [5, 5]]  # initial bounds
 x = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 # GUI variables
