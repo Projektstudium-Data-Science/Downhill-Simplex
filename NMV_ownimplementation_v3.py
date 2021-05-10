@@ -32,7 +32,7 @@ def random_bounds(lb, ub):
     theta = [0.2, 0.4, 0.6, 0.8]
     for i in [0, 1, 2, 3]:
         for j in [0, 1]:
-            x[i][j] = lb[j] + theta[i] * (ub[j] - lb[j])
+            x[i][j] = lb[j] + theta[i] * (ub[j] - lb[j]) + i**2
     return x
 
 
